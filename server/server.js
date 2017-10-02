@@ -45,5 +45,19 @@ app.put('/lions/:id', function(req, res) {
   }
 });
 
+// Added delete route from Scott example
+app.delete('lions/:id', function (req, res) {
+  var lion = _.findIndex(lions, {id: req.params.id});
+
+  if (!lions[lion]) {
+    res.send();
+  } else {
+    var deletedLion = lions[lion];
+    lions.splice(lion, 1);
+    res.send(deletedLion);
+  }
+});
+
+
 app.listen(3000);
 console.log('on port 3000');
