@@ -20,11 +20,13 @@ app.use(express.static('client'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+/* Error handler in the wrong place. Move it to the bottom.
 app.use(function(err, req, res, next) {
   if (err) {
-    res.status(500).send(error);
+    res.status(500).send(err);
   }
 });
+*/
 
 app.param('id', function(req, res, next, id) {
   var lion = _.find(lions, {id: id});
@@ -67,6 +69,16 @@ app.put('/lions/:id', function(req, res) {
   } else {
     var updatedLion = _.assign(lions[lion], update);
     res.json(updatedLion);
+  }
+});
+
+// Moved error handler to the bottom. This is the where it belongs.
+// As long as you pass an err into next, i.e. next(err),
+// in the middleware function, the error will
+// get to this error handling function.
+app.use(function(err, req, res, next) {
+  if (err) {
+    res.status(500).send(err);
   }
 });
 
