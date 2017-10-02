@@ -7,7 +7,7 @@ const app = express();
 
 // "file-system" module not needed.
 // Scott says res.sendFile has its own internal readFile.
-const fs = require("file-system");
+// const fs = require("file-system");
 
 var jsonData = {count: 12, message: 'hey'};
 
