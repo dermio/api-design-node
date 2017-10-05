@@ -6,7 +6,7 @@ var api = require('./api/api');
 require('./middleware/appMiddlware')(app);
 
 // setup the api
-app.use('/api/', api);
+app.use('/api', api);
 // set up global error handling
 
 // export the app for testing
